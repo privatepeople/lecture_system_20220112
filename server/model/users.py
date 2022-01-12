@@ -17,7 +17,7 @@ class Users():
             'name': self.name,
             'birth_year': self.birth_year,
             'address': self.address,
-            'gender': self.gender,
+            'gender': self.gender
         }
         
         return data
