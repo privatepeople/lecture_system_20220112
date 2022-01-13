@@ -18,6 +18,7 @@ def create_app():
     def user_post():
         # args : 쿼리파라미터들이 들어있는 데이터들 ( GET / DELETE )
         # form : 폼데이터에 담겨있는 데이터들 ( POST / PUT / PATCH )
+        # cf) json body 첨부하는 경우도 있음
         return login(request.form.to_dict())
     
     # 회원가입
