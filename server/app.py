@@ -39,10 +39,9 @@ def create_app():
         return get_all_lectures(request.args.to_dict())
     
     # 특정 강의 상세 조회
-    @app.get("/lecture/<lecture_id>") # /lecture/1 처럼, path방식의 주소.
+    @app.get("/lecture/<lecture_id>") # /lecture/1 처럼, path방식의 주소. RESTful API 형태의 주소
     def lecture_detail(lecture_id):
-        print(f"어떤 강의 ? {lecture_id}")
-        return view_lecture_detail()
+        return view_lecture_detail(lecture_id, request.args.to_dict())
     
     # 수강신청 기능
     @app.post("/lecture")
