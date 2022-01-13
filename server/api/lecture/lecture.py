@@ -42,3 +42,32 @@ def apply_lecture(params):
         'code': 200,
         'message': '수강신청을 성공했습니다.'
     }
+
+def cancel_apply(params):
+    
+    # 1. 수강신청을 안한 과목 취소? 불가. 400
+    
+    sql = f"SELECT * FROM lecture_user WHERE lecture_id = {params['lecture_id']} AND user_id = {params['user_id']}"
+    
+    already_apply = db.executeOne(sql)
+    
+    if not already_apply:
+        return {
+            'code': 400,
+            'message': '수강신청 내역이 없습니다.'
+        }, 400
+    
+    # 향후 - 토큰을 받아내면, 내가 신청한 과목만 취소 가능하도록.
+    
+    # 2. 실제 신청 내역 삭제. (쿼리 매우 유의)
+    
+    sql = f"DELETE FROM lecture_user WHERE lecture_id = {params['lecture_id']} AND user_id = {params['user_id']}"
+    
+    # DELETE문도, 쿼리실행 / DB변경 확정 절차로, INSERT INTO와 동일하게 동작함.
+    db.cursor.execute(sql)
+    db.db.commit()
+    
+    return {
+        'code': 200,
+        'message': '수강신청 취소 성공'
+    }
