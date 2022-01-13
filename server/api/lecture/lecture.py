@@ -1,4 +1,4 @@
-from server.model import Lectures
+from server.model import Lectures, lectures
 from server import db
 
 def get_all_lectures(params):
@@ -75,7 +75,23 @@ def cancel_apply(params):
     
 # 특정 강의 상세보기
 def view_lecture_detail(id, params):
-    print('조회할 강의 id : ', id)
+    
+    # 1. 강의 자체에 대한 정보 조회
+    
+    sql = f"SELECT * FROM lectures WHERE id = {id}"
+    
+    lecture_data = db.executeOne(sql)
+    
+    lecture = Lectures(lecture_data)
+    
+    # 2. 강의의 평점을 추가로 조회 (해당 강의의 모든 리뷰의 점수 -> 평균)
+    
+    # 3. 모든 리뷰의 내역을 추가로 첨부.
+    
     return {
-        '임시': '강의 상세 조회'
+        'code': 200,
+        'message': '강의 상세 조회',
+        'data': {
+            'lecture': lecture.get_data_object()
+        }
     }
