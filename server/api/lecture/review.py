@@ -70,8 +70,34 @@ def write_review(params):
         'code': 200,
         'message': '리뷰 등록에 성공했습니다.'
     }
-    
+
+# 특정항목을 지정해서, 해당 항목만 수정
 def modify_reviews(params):
+    
+    # 파라미터 정리
+    # field : 어느 항목을 바꿀지 알려주는 역할
+    # value : 해당 항목에 실제로 넣어줄 값
+    # user_id : 이 변경을 시도하는 사람이 누구인지? 고유번호
+    # review_id : 변경해줄 리뷰의 id
+    
+    # field라는 이름표로, 어느 항목을 바꾸고 싶은지? 받아오자.
+    column_name = params['field']
+    
+    # 제목 변경?
+    
+    if column_name == 'title':
+        sql = f"UPDATE lecture_review SET title = '{params['value']}' WHERE id = {params['review_id']}"
+        
+        # DB에 변경 발생 -> 쿼리실행 / commit
+        db.cursor.execute(sql)
+        db.db.commit()
+        
+        # 제목 변경 성공 리턴.
+        return {
+            'code': 200,
+            'message': '제목을 수정했습니다.'
+        }
+    
     return {
         '임시': '리뷰 수정 기능'
     }
