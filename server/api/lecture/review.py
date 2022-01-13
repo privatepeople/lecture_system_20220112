@@ -70,3 +70,8 @@ def write_review(params):
         'code': 200,
         'message': '리뷰 등록에 성공했습니다.'
     }
+    
+def modify_reviews(params):
+    return {
+        '임시': '리뷰 수정 기능'
+    }
