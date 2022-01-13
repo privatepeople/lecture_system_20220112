@@ -43,6 +43,7 @@ def apply_lecture(params):
         'message': '수강신청을 성공했습니다.'
     }
 
+# 수강취소 - DELETE
 def cancel_apply(params):
     
     # 1. 수강신청을 안한 과목 취소? 불가. 400
@@ -70,4 +71,10 @@ def cancel_apply(params):
     return {
         'code': 200,
         'message': '수강신청 취소 성공'
+    }
+    
+# 특정 강의 상세보기
+def view_lecture_detail():
+    return {
+        '임시': '강의 상세 조회'
     }

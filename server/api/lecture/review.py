@@ -43,8 +43,30 @@ def write_review(params):
             'message': '수강을 한 인원만 리뷰 작성이 가능합니다.'
         }, 400
     
+    # 5. 이미 리뷰를 등록했다면, 추가 등록 불가.\
+    
+    sql = f"SELECT * FROM lecture_review WHERE lecture_id = {params['lecture_id']} AND user_id = {params['user_id']}"
+    
+    already_review_data = db.executeOne(sql)
+    
+    if already_review_data:
+        return {
+            'code': 400,
+            'message': '이미 리뷰를 등록한 강의입니다.'
+        }, 400
+    
     # 리뷰 실제 등록
     
+    sql = f"""
+    INSERT INTO lecture_review
+    (lecture_id, user_id, title, content, score)
+    VALUES
+    ({params['lecture_id']}, {params['user_id']}, '{params['title']}', '{params['content']}', {score})
+    """
+    
+    db.insertAndCommit(sql)
+    
     return {
-        '임시': '강의 리뷰 작성 기능'
+        'code': 200,
+        'message': '리뷰 등록에 성공했습니다.'
     }
