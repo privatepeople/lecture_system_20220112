@@ -10,7 +10,7 @@ class Lectures:
     
     # 리뷰 목록이 추가된다면? => 강위의 하위 데이터로, reviews: []를 추가해보자.
     # 기본값 : None => 리뷰를 다루고 싶지않은 경우(ex. 전체 목록) 도 대응.
-    def get_data_object(self, reviews=None):
+    def get_data_object(self, reviews=None, avg_score=None):
         
         # data {} => dict를 만드는 행위
         data = {
@@ -28,13 +28,16 @@ class Lectures:
         
             # 모든 리뷰의 평점을 가지고 평균을 구해보자.
             
-            sum_score = 0
+            # sum_score = 0
             
-            for review in reviews:
-                sum_score += review['score']
+            # for review in reviews:
+            #     sum_score += review['score']
                 
-            avg_score = sum_score / len(reviews)
+            # avg_score = sum_score / len(reviews)
         
+            # data['avg_score'] = avg_score
+            
+        if avg_score:
             data['avg_score'] = avg_score
         
         
